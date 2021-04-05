@@ -21,10 +21,10 @@ for gpu in gpus:
 
 
 LOG_DIR = 'logs'
-BATCH_SIZE = 512
-NUM_CLASSES = 20
+BATCH_SIZE = 256
+NUM_CLASSES = 101
 RESIZE_TO = 224
-TRAIN_SIZE = 12786
+TRAIN_SIZE = 101000
 
 
 def parse_proto_example(proto):
@@ -50,7 +50,6 @@ def create_dataset(filenames, batch_size):
   """
   return tf.data.TFRecordDataset(filenames)\
     .map(parse_proto_example, num_parallel_calls=tf.data.AUTOTUNE)\
-    .cache()\
     .map(normalize)\
     .batch(batch_size)\
     .prefetch(tf.data.AUTOTUNE)
@@ -70,7 +69,7 @@ def main():
   args.add_argument('--train', type=str, help='Glob pattern to collect train tfrecord files, use single quote to escape *')
   args = args.parse_args()
 
-  dataset = create_dataset(glob.glob(args.train), BATCH_SIZE).shuffle(8)
+  dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
   train_dataset = dataset.take(train_size)
   validation_dataset = dataset.skip(train_size)
@@ -83,7 +82,7 @@ def main():
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
 
-  log_dir='{}/owl-{}'.format(LOG_DIR, time.time())
+  log_dir='{}/f101-{}'.format(LOG_DIR, time.time())
   model.fit(
     train_dataset,
     epochs=50,
