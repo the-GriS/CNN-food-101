@@ -1,30 +1,15 @@
-# Food-101 classification example using CNN on tf 2.x + keras
+# Лабораторная работа №2
 
-The goal of that lab is to create CNN that solves Food-101 Classification task
+# 1. Обучить нейронную сеть EfficientNet-B0 (случайное начальное приближение) для решения задачи классификации изображений Food-101
 
-Pre-requisites:
-1. TensorFlow 2.x environment
+# 2. С использованием техники обучения Transfer Learning обучить нейронную сеть EfficientNet-B0 (предобученную на базе изображений imagenet) для решения задачи классификации изображений Food-101
 
-Steps to reproduce results:
-1. Clone the repository:
-```
-git clone git@github.com:AlexanderSoroka/CNN-food-101.git
-```
-2. Download [Food-101](https://www.kaggle.com/kmader/food41) from kaggle to archive.zip
-- unpack dataset `unzip archive.zip`
-- change current directory to the folder with unpacked dataset
+## Графики обучения:
+- Синяя линия - валидация
+- Оранжевая линия - обучение
 
-3. Generate TFRecords with build_image_data.py script:
+*График точности*
+![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/master/diagrams/lab_2_TransferLearning/epoch_categorical_accuracy.svg)
 
-```
-python build_image_data.py --input <dataset root path> --output <tf output path>
-```
-
-Validate that total size of generated tfrecord files is close ot original dataset size
-
-4. Run train.py to train pre-defined CNN:
-```
-python train.py --train '<dataset root path>/train*'
-```
-
-5. Modify model and have fun
+*График потерь*
+![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/master/diagrams/lab_2_TransferLearning/epoch_loss.svg)
