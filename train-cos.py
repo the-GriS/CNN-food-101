@@ -22,10 +22,13 @@ for gpu in gpus:
 
 
 LOG_DIR = 'logs'
-BATCH_SIZE = 64
+BATCH_SIZE = 16
 NUM_CLASSES = 101
 RESIZE_TO = 224
 TRAIN_SIZE = 101000
+DECAY_STEPS = 5
+ALPHA = 0
+INITIAL_LEARNING_RATE = 0.001
 
 
 def parse_proto_example(proto):
@@ -59,6 +62,14 @@ def build_model():
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 
+def decayed_learning_rate(step):
+  step = min(step, DECAY_STEPS)
+  cosine_decay = 0.5 * (1 + cos(pi * step / DECAY_STEPS))
+  decayed = (1 - ALPHA) * cosine_decay + ALPHA
+  lr = INITIAL_LEARNING_RATE * decayed
+  print(f'{lr}')
+  return lr
+
 
 def main():
   args = argparse.ArgumentParser()
@@ -73,7 +84,7 @@ def main():
   model = build_model()
 
   model.compile(
-    optimizer=tf.optimizers.Adam(lr=0.001),
+    optimizer=tf.optimizers.Adam(),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
@@ -85,7 +96,8 @@ def main():
     validation_data=validation_dataset,
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),
-      LearningRateScheduler(tf.keras.experimental.CosineDecay(0.001, 1, 0.0)),
+      LearningRateScheduler(decayed_learning_rate),
+)
     ]
   )
 
