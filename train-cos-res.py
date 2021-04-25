@@ -26,6 +26,9 @@ BATCH_SIZE = 16
 NUM_CLASSES = 101
 RESIZE_TO = 224
 TRAIN_SIZE = 101000
+decay_steps = 5
+alpha = 0
+initial_learning_rate = 0.001
 
 
 def parse_proto_example(proto):
@@ -63,8 +66,9 @@ def decayed_learning_rate(step):
   step = min(step, decay_steps)
   cosine_decay = 0.5 * (1 + cos(pi * step / decay_steps))
   decayed = (1 - alpha) * cosine_decay + alpha
-  print(f'{decayed}')
-  return initial_learning_rate * decayed
+  lr = initial_learning_rate * decayed
+  print(f'{lr}')
+  return lr
 
 
 def main():
