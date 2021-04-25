@@ -97,7 +97,6 @@ def main():
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),
       LearningRateScheduler(decayed_learning_rate),
-)
     ]
   )
 
