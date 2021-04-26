@@ -73,7 +73,7 @@ def main():
   model = build_model()
 
   initial_rate = 0.001
-  decay_steps = 7700
+  decay_steps = 16000
 
   learning_rate_cos = tf.keras.experimental.CosineDecay(initial_rate, decay_steps)
 
