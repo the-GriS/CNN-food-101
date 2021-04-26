@@ -22,7 +22,7 @@ for gpu in gpus:
 
 
 LOG_DIR = 'logs'
-BATCH_SIZE = 16
+BATCH_SIZE = 32
 NUM_CLASSES = 101
 RESIZE_TO = 224
 TRAIN_SIZE = 101000
@@ -73,7 +73,7 @@ def main():
   model = build_model()
 
   initial_rate = 0.001
-  decay_steps = 16000
+  decay_steps = 7700
 
   learning_rate_CD = tf.keras.experimental.CosineDecay(initial_rate, decay_steps)
 
