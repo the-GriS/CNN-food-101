@@ -27,20 +27,26 @@ learning_rate_cos = tf.keras.experimental.CosineDecay(
 - Красный - темп 0.01 decay_steps = 7700 на валидации
 - Синий - темп 0.001 decay_steps = 66600 на валидации
 - Голубой - темп 0.0001 decay_steps = 7700 на валидации
+- Розовый - темп 0.0001 decay_steps = 22200 на валидации
 
 *График точности на валидации*
-![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_3/diagrams/lab_3/categorical_accuracy_cos.svg)
+![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_3/diagrams/lab_3/epoch_categorical_accuracy_cos.svg)
 
 *График потерь на валидации*
-![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_3/diagrams/lab_3/loss_cos.svg)
+![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_3/diagrams/lab_3/epoch_loss_cos.svg)
 
 *График изменения темпа обучения при initial_learning_rate = 0.001*
 - Оранжевый - decay_steps = 7700  
-- синий - decay_steps = 66600 
+- Cиний - decay_steps = 66600 
 ![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_3/diagrams/lab_3/learning_rate_cos_0.001.svg)
 
 *График изменения темпа обучения при initial_learning_rate = 0.01 decay_steps = 7700*
 ![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_3/diagrams/lab_3/learning_rate_0.01.svg)
+
+*График изменения темпа обучения при initial_learning_rate = 0.0001*
+- Оранжевый - decay_steps = 7700  
+- Cиний - decay_steps = 22200 
+![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_3/diagrams/lab_3/learning_rate_cos_0.0001.svg)
 
 ## 3. Реализовать и применить в обучении Косинусное затухание с перезапусками (Cosine Decay with Restarts), а также определить оптимальные параметры для данной политики
 
