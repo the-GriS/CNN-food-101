@@ -74,8 +74,8 @@ def main():
 
   initial_rate = 0.001
   first_decay_steps = 7777
-  t_mul = 1.7
-  m_mul = 0.7
+  t_mul = 1.3
+  m_mul = 0.9
 
   learning_rate_CDWR = tf.keras.experimental.CosineDecayRestarts(initial_rate, first_decay_steps, t_mul, m_mul)
 
