@@ -72,8 +72,8 @@ def main():
 
   model = build_model()
 
-  initial_rate = 0.0001
-  first_decay_steps = 100
+  initial_rate = 0.001
+  first_decay_steps = 7777
   t_mul = 1
   m_mul = 2
 
