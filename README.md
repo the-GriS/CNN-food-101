@@ -39,7 +39,7 @@ learning_rate_cos = tf.keras.experimental.CosineDecay(
 ![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_3/diagrams/lab_3/learning_rate_cos_0.001.svg)
 
 *График изменения темпа обучения при initial_learning_rate = 0.01 decay_steps = 7700 *
-![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_3/diagrams/lab_3/learning_rate_cos_0.001.svg)
+![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_3/diagrams/lab_3/learning_rate_0.01.svg)
 
 ## 3. Реализовать и применить в обучении Косинусное затухание с перезапусками (Cosine Decay with Restarts), а также определить оптимальные параметры для данной политики
 
