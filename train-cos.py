@@ -75,10 +75,10 @@ def main():
   initial_rate = 0.001
   decay_steps = 7700
 
-  learning_rate_CD = tf.keras.experimental.CosineDecay(initial_rate, decay_steps)
+  learning_rate_cos = tf.keras.experimental.CosineDecay(initial_rate, decay_steps)
 
   model.compile(
-    optimizer=tf.optimizers.Adam(learning_rate=learning_rate_CD),
+    optimizer=tf.optimizers.Adam(learning_rate=learning_rate_cos),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
