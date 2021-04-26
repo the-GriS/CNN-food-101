@@ -22,7 +22,7 @@ for gpu in gpus:
 
 
 LOG_DIR = 'logs'
-BATCH_SIZE = 64
+BATCH_SIZE = 16
 NUM_CLASSES = 101
 RESIZE_TO = 224
 TRAIN_SIZE = 101000
@@ -60,7 +60,7 @@ def build_model():
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 
 def decayed_learning_rate(step):
-  lr = (tf.keras.experimental.CosineDecayRestarts(0.0001, 1, 2.0, 1.0, 0.0, None))
+  lr = (tf.keras.experimental.CosineDecayRestarts(0.001, 100, 2.0, 1.0, 0.0, None))
   print(f'{lr}')
   return lr
 
@@ -89,7 +89,7 @@ def main():
     validation_data=validation_dataset,
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),
-      LearningRateScheduler(decayed_learning_rate)
+      LearningRateScheduler(decayed_learning_rate),
     ]
   )
 
