@@ -14,7 +14,6 @@ import time
 from tensorflow.python import keras as keras
 from tensorflow.python.keras.callbacks import LearningRateScheduler
 from tensorflow.keras.applications import EfficientNetB0
-from math import cos, pi
 
 # Avoid greedy memory allocation to allow shared GPU usage
 gpus = tf.config.experimental.list_physical_devices('GPU')
@@ -27,9 +26,6 @@ BATCH_SIZE = 16
 NUM_CLASSES = 101
 RESIZE_TO = 224
 TRAIN_SIZE = 101000
-DECAY_STEPS = 100
-ALPHA = 11
-INITIAL_LEARNING_RATE = 0.0001
 
 
 def parse_proto_example(proto):
@@ -63,14 +59,6 @@ def build_model():
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 
-def decayed_learning_rate(step):
-  step = min(step, DECAY_STEPS)
-  cosine_decay = 0.5 * (1 + cos(pi * step / DECAY_STEPS))
-  decayed = (1 - ALPHA) * cosine_decay + ALPHA
-  lr = INITIAL_LEARNING_RATE * decayed
-  print(f'{lr}')
-  return lr
-
 
 def main():
   args = argparse.ArgumentParser()
@@ -84,8 +72,13 @@ def main():
 
   model = build_model()
 
+  initial_rate = 0.001
+  decay_steps = 16000
+
+  learning_rate_CD = tf.keras.experimental.CosineDecay(initial_rate, decay_steps)
+
   model.compile(
-    optimizer=tf.optimizers.Adam(),
+    optimizer=tf.optimizers.Adam(learning_rate=learning_rate_CD),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
@@ -96,8 +89,7 @@ def main():
     epochs=50,
     validation_data=validation_dataset,
     callbacks=[
-      tf.keras.callbacks.TensorBoard(log_dir),
-      LearningRateScheduler(decayed_learning_rate),
+      tf.keras.callbacks.TensorBoard(log_dir)
     ]
   )
 
