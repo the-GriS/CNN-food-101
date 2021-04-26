@@ -77,10 +77,10 @@ def main():
   t_mul = 1.3
   m_mul = 0.9
 
-  learning_rate_CDWR = tf.keras.experimental.CosineDecayRestarts(initial_rate, first_decay_steps, t_mul, m_mul)
+  learning_rate_cos_res = tf.keras.experimental.CosineDecayRestarts(initial_rate, first_decay_steps, t_mul, m_mul)
 
   model.compile(
-    optimizer=tf.optimizers.Adam(learning_rate=learning_rate_CDWR),
+    optimizer=tf.optimizers.Adam(learning_rate=learning_rate_cos_res),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
