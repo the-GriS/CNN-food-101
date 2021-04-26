@@ -53,6 +53,8 @@ learning_rate_cos_res = (
 ![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_3/diagrams/lab_3/loss_cos_res.svg)
 
 *График изменения темпа обучения*
+- Оранжевый - темп 0.001 при first_decay_steps=7700 t_mul=1.7 m_mul=0.7 
+- Красный - темп 0.001 при first_decay_steps=7700 t_mul=1.3 m_mul=0.9 
 ![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_3/diagrams/lab_3/learning_rate_cos_res.svg)
 
 ## Анализ результатов
