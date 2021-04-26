@@ -17,7 +17,7 @@
 
 При использовании политики косинусного затухания мы взяли функцию:  
 ```
-lr_decayed_fn = tf.keras.experimental.CosineDecay(
+learning_rate_cos = tf.keras.experimental.CosineDecay(
     initial_learning_rate, decay_steps) 
 ```  
 Где initial_learning_rate - начальная скорость обучения, decay_steps - количество итераций, по которым проходит затухание.
@@ -45,7 +45,7 @@ learning_rate_cos_res = (
       initial_learning_rate,
       first_decay_steps, t_mul, m_mul))
 ```  
-Где initial_learning_rate - начальная скорость обучения, first_decay_steps - количество итераций, по которым проходит затухание и после чего проиходит перезапуск; t_mul - используется для определения количества итераций в i-м периоде, m_mul - используется для получения начальной скорости обучения i-го периода.
+Где initial_learning_rate - начальная скорость обучения, first_decay_steps - количество итераций, по которым проходит затухание и после чего проиходит перезапуск; t_mul - используется для определения количества итераций в i-м периоде(first_decay_steps_i = first_decay_steps * t_mul), m_mul - используется для получения начальной скорости обучения i-го периода(initial_learning_rate_i = initial_learning_rate * m_mul).
 
 ### Графики обучения:
 - Оранжевый - темп 0.001 при first_decay_steps=7700 t_mul=1.7 m_mul=0.7 на обучении 
