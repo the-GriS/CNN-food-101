@@ -53,7 +53,7 @@ def create_dataset(filenames, batch_size):
 
 def build_model():
   inputs = tf.keras.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
-  img_aug = tf.keras.layers.experimental.preprocessing.RandomRotation(factor=0.25)(inputs)
+  img_aug = tf.keras.layers.experimental.preprocessing.RandomRotation(factor=0.15)(inputs)
   x = EfficientNetB0(include_top=False, input_tensor = img_aug, pooling ='avg', weights='imagenet')
   x.trainable = False
   x = tf.keras.layers.Flatten()(x.output)
