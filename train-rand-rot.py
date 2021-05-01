@@ -56,8 +56,8 @@ def create_dataset(filenames, batch_size):
 def build_model():
   inputs = tf.keras.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
   img_aug = tf.keras.layers.experimental.preprocessing.RandomRotation(factor=0.05)(inputs)
-  x = EfficientNetB0(include_top=False, input_tensor = img_aug, pooling ='avg', weights='imagenet')
-  x.trainable = False
+  model = tf.keras.applications.EfficientNetB0(include_top=False, input_tensor=img_aug, weights='imagenet')
+  model.trainable = False
   x = tf.keras.layers.GlobalAveragePooling2D()(model.output)
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
