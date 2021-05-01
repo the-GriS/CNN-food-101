@@ -69,12 +69,13 @@ def main():
 
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
-  train_dataset = dataset.take(train_size)
+  
   validation_dataset = dataset.skip(train_size)
 
   model = build_model()
   
-  for x, y in dataset.take(1):
+  train_dataset = outputs.take(train_size)
+  for x, y in outputs.take(1):
     for j in x:
       print(j)
       #tf.keras.preprocessing.image.save_img(path=LOG_DIR, x=j, file_format='.jpg')
