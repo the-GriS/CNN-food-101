@@ -55,6 +55,14 @@ def create_dataset(filenames, batch_size):
 def build_model():
   inputs = tf.keras.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
   img_aug = tf.keras.layers.experimental.preprocessing.RandomRotation(factor=0.05)(inputs)
+  train_dataset = img_aug.take(train_size)
+  for x, y in img_aug.take(1):
+    for j in x:
+      print(j)
+      #tf.keras.preprocessing.image.save_img(path=LOG_DIR, x=j, file_format='.jpg')
+      img = Image.fromarray(j.numpy(), 'RGB')
+      img.save('img.jpg')
+      break
   x = EfficientNetB0(include_top=False, input_tensor = img_aug, pooling ='avg', weights='imagenet')
   x.trainable = False
   x = tf.keras.layers.Flatten()(x.output)
@@ -69,20 +77,12 @@ def main():
 
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
-  
+  train_dataset = dataset.take(train_size)
   validation_dataset = dataset.skip(train_size)
 
   model = build_model()
   
-  train_dataset = outputs.take(train_size)
-  for x, y in outputs.take(1):
-    for j in x:
-      print(j)
-      #tf.keras.preprocessing.image.save_img(path=LOG_DIR, x=j, file_format='.jpg')
-      img = Image.fromarray(j.numpy(), 'RGB')
-      img.save('img.jpg')
-      break
-  
+
 
   initial_rate = 0.001
   first_decay_steps = 7700
