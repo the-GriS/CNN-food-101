@@ -40,8 +40,6 @@ def parse_proto_example(proto):
   example['image'] = tf.image.resize(example['image'], tf.constant([RESIZE_TO, RESIZE_TO]), method='nearest')
   return example['image'], tf.one_hot(example['image/label'], depth=NUM_CLASSES)
 
-def process_data(image, label):
-  return tf.image.RandomRotation(factor=0.05), label
   
   
 def create_dataset(filenames, batch_size):
@@ -51,7 +49,6 @@ def create_dataset(filenames, batch_size):
   """
   return tf.data.TFRecordDataset(filenames)\
     .map(parse_proto_example, num_parallel_calls=tf.data.AUTOTUNE)\
-    .map(process_data)\
     .batch(batch_size)\
     .prefetch(tf.data.AUTOTUNE)
 
