@@ -41,7 +41,7 @@ def parse_proto_example(proto):
   return example['image'], tf.one_hot(example['image/label'], depth=NUM_CLASSES)
 
 def process_data(image, label):
-  return tf.image.layers.experimental.preprocessing.RandomRotation(factor=0.05), label
+  return tf.image.RandomRotation(factor=0.05), label
   
   
 def create_dataset(filenames, batch_size):
