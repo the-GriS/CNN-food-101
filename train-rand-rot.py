@@ -14,6 +14,7 @@ import time
 from tensorflow.python import keras as keras
 from tensorflow.python.keras.callbacks import LearningRateScheduler
 from tensorflow.keras.applications import EfficientNetB0
+from PIL import Image
 
 # Avoid greedy memory allocation to allow shared GPU usage
 gpus = tf.config.experimental.list_physical_devices('GPU')
@@ -73,7 +74,6 @@ def main():
 
   model = build_model()
   
-  """
   for x, y in dataset.take(1):
     for j in x:
       print(j)
@@ -81,7 +81,7 @@ def main():
       img = Image.fromarray(j.numpy(), 'RGB')
       img.save('img.jpg')
       break
-  """    
+  
 
   initial_rate = 0.001
   first_decay_steps = 7700
