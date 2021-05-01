@@ -58,7 +58,7 @@ def build_model():
   img_aug = tf.keras.layers.experimental.preprocessing.RandomRotation(factor=0.05)(inputs)
   x = EfficientNetB0(include_top=False, input_tensor = img_aug, pooling ='avg', weights='imagenet')
   x.trainable = False
-  x = tf.keras.layers.Flatten()(x.output)
+  x = tf.keras.layers.GlobalAveragePooling2D()(model.output)
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 
