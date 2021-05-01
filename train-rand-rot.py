@@ -54,7 +54,7 @@ def create_dataset(filenames, batch_size):
 
 def build_model():
   inputs = tf.keras.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
-  img_aug = tf.keras.layers.experimental.preprocessing.RandomRotation(factor=0.05, fill_mode='constant', fill_value=255)(inputs)
+  img_aug = tf.keras.layers.experimental.preprocessing.RandomRotation(90)(inputs)
   x = EfficientNetB0(include_top=False, input_tensor = img_aug, pooling ='avg', weights='imagenet')
   x.trainable = False
   x = tf.keras.layers.Flatten()(x.output)
@@ -74,7 +74,7 @@ def main():
 
   model = build_model()
   
-  for x, y in dataset.take(2):
+  for x, y in dataset.take(1):
     for j in x:
       print(j)
       #tf.keras.preprocessing.image.save_img(path=LOG_DIR, x=j, file_format='.jpg')
