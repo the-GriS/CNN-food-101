@@ -33,7 +33,7 @@ tf.keras.layers.experimental.preprocessing.RandomFlip(
 *График потерь*
 ![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_4/diagrams/lab_4/loss_rand_flip.svg)
 
-*Пример измененного изображения с оптимальными параметрами*  
+*Пример измененного изображения*  
 ![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_4/diagrams/lab_4/img_horizont.jpg)
 
 ### b. Использование случайной части изображения 
@@ -57,7 +57,7 @@ tf.keras.layers.experimental.preprocessing.RandomCrop(
 *График потерь*
 ![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_4/diagrams/lab_4/loss_rand_crop.svg)
 
-*Пример измененного изображения с оптимальными параметрами*  
+*Пример измененного изображения*  
 ![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_4/diagrams/lab_4/img_crop.jpg)
 
 ### c. Поворот на случайный угол
@@ -82,7 +82,7 @@ tf.keras.layers.experimental.preprocessing.RandomRotation(
 *График потерь*
 ![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_4/diagrams/lab_4/loss_rand_rot.svg)
 
-*Пример измененного изображения с оптимальными параметрами*  
+*Пример измененного изображения*  
 ![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_4/diagrams/lab_4/img.jpg)
 
 ## 2. Обучить нейронную сеть с использованием исследованных техник аугментации данных совместно
@@ -97,7 +97,7 @@ tf.keras.layers.experimental.preprocessing.RandomRotation(
 *График потерь*
 ![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_4/diagrams/lab_4/loss_full.svg)
 
-*Пример измененного изображения с оптимальными параметрами*  
+*Пример измененного изображения*  
 ![Alt-текст](https://github.com/the-GriS/CNN-food-101/blob/lab_4/diagrams/lab_4/img_full.jpg)
 
 ## Анализ результатов
