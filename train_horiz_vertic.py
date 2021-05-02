@@ -14,6 +14,7 @@ import time
 from tensorflow.python import keras as keras
 from tensorflow.python.keras.callbacks import LearningRateScheduler
 from tensorflow.keras.applications import EfficientNetB0
+from PIL import Image
 
 # Avoid greedy memory allocation to allow shared GPU usage
 gpus = tf.config.experimental.list_physical_devices('GPU')
@@ -53,7 +54,7 @@ def create_dataset(filenames, batch_size):
 
 def build_model():
   inputs = tf.keras.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
-  img_aug = tf.keras.layers.experimental.preprocessing.RandomFlip("vertical")(inputs)
+  img_aug = tf.keras.layers.experimental.preprocessing.RandomFlip("horizontal")(inputs)
   x = EfficientNetB0(include_top=False, input_tensor = img_aug,pooling ='avg', weights='imagenet')
   x.trainable = False
   x = tf.keras.layers.Flatten()(x.output)
@@ -72,6 +73,13 @@ def main():
   validation_dataset = dataset.skip(train_size)
 
   model = build_model()
+  
+  for x, y in dataset.take(1):
+    for j in x:
+      print(j)
+      img = Image.fromarray(j.numpy(), 'RGB')
+      img.save('img.jpg')
+      break
 
   initial_rate = 0.001
   first_decay_steps = 7700
