@@ -14,6 +14,7 @@ import time
 from tensorflow.python import keras as keras
 from tensorflow.python.keras.callbacks import LearningRateScheduler
 from tensorflow.keras.applications import EfficientNetB0
+from PIL import Image
 
 # Avoid greedy memory allocation to allow shared GPU usage
 gpus = tf.config.experimental.list_physical_devices('GPU')
@@ -36,7 +37,7 @@ def parse_proto_example(proto):
   example = tf.io.parse_single_example(proto, keys_to_features)
   example['image'] = tf.image.decode_jpeg(example['image/encoded'], channels=3)
   example['image'] = tf.image.convert_image_dtype(example['image'], dtype=tf.uint8)
-  example['image'] = tf.image.resize(example['image'], tf.constant([250, 250]))
+  example['image'] = tf.image.resize(example['image'], tf.constant([250, 250]), method='nearest')
   return example['image'], tf.one_hot(example['image/label'], depth=NUM_CLASSES)
 
 
@@ -78,6 +79,13 @@ def main():
   validation_dataset = dataset.skip(train_size)
 
   model = build_model()
+  
+  for x, y in dataset.take(1):
+    for j in x:
+      print(j)
+      img = Image.fromarray(j.numpy(), 'RGB')
+      img.save('img.jpg')
+      break
 
   initial_rate = 0.001
   first_decay_steps = 7700
