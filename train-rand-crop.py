@@ -36,7 +36,7 @@ def parse_proto_example(proto):
   example = tf.io.parse_single_example(proto, keys_to_features)
   example['image'] = tf.image.decode_jpeg(example['image/encoded'], channels=3)
   example['image'] = tf.image.convert_image_dtype(example['image'], dtype=tf.uint8)
-  example['image'] = tf.image.resize(example['image'], tf.constant([350, 350]))
+  example['image'] = tf.image.resize(example['image'], tf.constant([350, 350]), method='nearest')
   return example['image'], tf.one_hot(example['image/label'], depth=NUM_CLASSES)
 
 
@@ -76,6 +76,14 @@ def main():
   validation_dataset = dataset.skip(train_size)
 
   model = build_model()
+  
+  for x, y in dataset.take(1):
+    for j in x:
+      print(j)
+      #tf.keras.preprocessing.image.save_img(path=LOG_DIR, x=j, file_format='.jpg')
+      img = Image.fromarray(j.numpy(), 'RGB')
+      img.save('img.jpg')
+      break
 
   initial_rate = 0.001
   first_decay_steps = 7700
