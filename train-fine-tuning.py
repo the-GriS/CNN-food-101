@@ -102,7 +102,7 @@ def main():
   log_dir='{}/f101-{}'.format(LOG_DIR, time.time())
   model.fit(
     train_dataset,
-    epochs=29,
+    epochs=19,
     validation_data=validation_dataset,
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir)
@@ -112,13 +112,13 @@ def main():
   unfreeze_model(model)
 
   model.compile(
-    optimizer=tf.optimizers.Adam(lr=1.3e-6),
+    optimizer=tf.optimizers.Adam(lr=1e-7),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
   model.fit(
     train_dataset,
-    epochs=21,
+    epochs=15,
     validation_data=validation_dataset,
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),
