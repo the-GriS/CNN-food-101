@@ -68,6 +68,12 @@ def build_model():
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 
 
+def unfreeze_model(model):
+  for layer in model.layers:
+    if not isinstance(layer, tf.keras.layers.BatchNormalization):
+      layer.trainable = True
+      
+
 def main():
   args = argparse.ArgumentParser()
   args.add_argument('--train', type=str, help='Glob pattern to collect train tfrecord files, use single quote to escape *')
@@ -105,13 +111,28 @@ def main():
   log_dir='{}/f101-{}'.format(LOG_DIR, time.time())
   model.fit(
     train_dataset,
-    epochs=50,
+    epochs=29,
     validation_data=validation_dataset,
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir)
     ]
   )
+  
+  unfreeze_model(model)
 
+  model.compile(
+    optimizer=tf.optimizers.Adam(lr=1.4e-5),
+    loss=tf.keras.losses.categorical_crossentropy,
+    metrics=[tf.keras.metrics.categorical_accuracy],
+  )
+  model.fit(
+    train_dataset,
+    epochs=21,
+    validation_data=validation_dataset,
+    callbacks=[
+      tf.keras.callbacks.TensorBoard(log_dir),
+    ]
+  )
 
 if __name__ == '__main__':
     main()
