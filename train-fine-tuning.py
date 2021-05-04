@@ -85,15 +85,6 @@ def main():
   validation_dataset = dataset.skip(train_size)
 
   model = build_model()
-  
-  """
-  for x, y in dataset.take(1):
-    for j in x:
-      print(j)
-      img = Image.fromarray(j.numpy(), 'RGB')
-      img.save('img.jpg')
-      break
-  """
 
   initial_rate = 0.001
   first_decay_steps = 7700
@@ -121,7 +112,7 @@ def main():
   unfreeze_model(model)
 
   model.compile(
-    optimizer=tf.optimizers.Adam(lr=1.4e-6),
+    optimizer=tf.optimizers.Adam(lr=2e-6),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
