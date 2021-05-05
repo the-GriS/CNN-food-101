@@ -102,7 +102,7 @@ def main():
   log_dir='{}/f101-{}'.format(LOG_DIR, time.time())
   model.fit(
     train_dataset,
-    epochs=10,
+    epochs=25,
     validation_data=validation_dataset,
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir)
