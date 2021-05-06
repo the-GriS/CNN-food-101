@@ -97,7 +97,7 @@ def main():
   make_unfreeze_model(model)
   
   model.compile(
-    optimizer=tf.optimizers.Adam(learning_rate = 1e-6),
+    optimizer=tf.optimizers.Adam(lr = 1e-6),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
