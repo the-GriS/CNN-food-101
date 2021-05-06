@@ -51,14 +51,10 @@ def create_dataset(filenames, batch_size):
     .batch(batch_size)\
     .prefetch(tf.data.AUTOTUNE)
 
-data_augmentation = tf.keras.Sequential([
-	preprocessing.RandomFlip(mode="horizontal")
-    ])
-
 def build_model():
   inputs = tf.keras.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
-  x = data_augmentation(inputs)
-  x = EfficientNetB0(include_top=False, weights='imagenet', input_tensor = x)
+  img_aug = tf.keras.layers.experimental.preprocessing.RandomFlip("horizontal")(inputs)
+  x = EfficientNetB0(include_top=False, input_tensor = img_aug,pooling ='avg', weights='imagenet')
   x.trainable = False
   x = tf.keras.layers.GlobalAveragePooling2D()(x.output)
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)(x)
