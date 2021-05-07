@@ -118,7 +118,7 @@ def main():
   )
   model.fit(
     train_dataset,
-    epochs=15,
+    epochs=20,
     validation_data=validation_dataset,
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),
