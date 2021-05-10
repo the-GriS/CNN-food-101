@@ -75,7 +75,7 @@ def main():
 
   model = build_model()
   
-  for x, y in dataset.take(2):
+  for x, y in dataset.take(5):
     for j in x:
       print(j)
       #tf.keras.preprocessing.image.save_img(path=LOG_DIR, x=j, file_format='.jpg')
